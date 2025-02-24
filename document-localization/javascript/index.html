@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Localization | Reverie</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="revFav.svg">
+</head>
+<body>
+    <div class="container">
+        <img src="reverieLogo.svg" alt="Reverie Logo" class="logo">
+        <h1>Document Localization</h1>
+        
+        <div class="file-upload" id="dropArea">
+            <p>Upload your document for translation</p>
+            <label class="upload-btn">
+                Browse Files
+                <input type="file" id="fileInput" class="file-upload-input" accept=".doc,.docx,.pdf,.txt,.rtf">
+            </label>
+            <p>or drag and drop your file here</p>
+            
+            <div class="file-info" id="fileInfo">
+                <p id="fileName">No file selected</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="sourceLanguage">Source Language</label>
+                <select id="sourceLanguage">
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="targetLanguage">Target Language</label>
+                <select id="targetLanguage">
+                </select>
+            </div>
+        </div>
+        
+        <div class="status-message" id="statusMessage"></div>
+        
+        <div class="buttons">
+            <button id="translateBtn" class="translate-btn">Translate Document</button>
+            <button id="downloadBtn" class="download-btn">Download Translation</button>
+            <button id="resetBtn" class="reset-btn">Reset</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
