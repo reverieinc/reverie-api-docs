@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transliteration | Reverie</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="revFav.svg">
+
+</head>
+<body>
+    <div class="container">
+        <img src="reverieLogo.svg" alt="Reverie Logo" class="logo">
+        <h1>Transliteration API</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="sourceLang">From</label>
+                <select id="sourceLang"></select>
+            </div>
+
+            <div class="control-group">
+                <label for="targetLang">To</label>
+                <select id="targetLang"></select>
+            </div>
+
+            <div class="domain-group">
+                <label for="domain">Domain</label>
+                <select id="domain"></select>
+            </div>
+        </div>
+
+        <div class="translation-boxes">
+            <textarea id="sourceText" placeholder="Enter text to transliterate..."></textarea>
+            <textarea id="targetText" placeholder="Transliteration will appear here..." readonly></textarea>
+        </div>
+
+        <div class="buttons">
+            <button id="transliterateBtn" class="transliterate-btn">Transliterate</button>
+            <button id="resetBtn" class="reset-btn">Reset</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script
+    src="https://swalekh.in/swalekh-middleware.js"
+    defer="async"
+  ></script>
+</body>
+</html>
