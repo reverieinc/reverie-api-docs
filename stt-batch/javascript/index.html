@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Transcription App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Speech-to-Text Transcription</h2>
+
+        <!-- Language Selection -->
+        <div class="language-container">
+            <label for="language">Select Language:</label>
+            <select id="language">
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="bn">Bengali</option>
+                <option value="gu">Gujarati</option>
+                <option value="kn">Kannada</option>
+                <option value="ml">Malayalam</option>
+                <option value="mr">Marathi</option>
+                <option value="pa">Punjabi</option>
+                <option value="ta">Tamil</option>
+                <option value="te">Telugu</option>
+                <option value="as">Assamese</option>
+                <option value="or">Odia</option>
+            </select>
+        </div>
+
+        <!-- Audio Upload Section -->
+        <div class="upload-container">
+            <label for="audioFile" class="upload-label">Upload an audio file:</label>
+            <input type="file" id="audioFile" accept="audio/*">
+            <button onclick="transcribeAudio()">Transcribe</button>
+        </div>
+
+        <!-- Audio Player -->
+        <div class="audio-container">
+            <audio id="audioPlayer" controls></audio>
+        </div>
+
+        <!-- Transcription Output -->
+        <div class="output-container">
+            <h3>Transcription:</h3>
+            <p id="transcription">No transcription yet.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
