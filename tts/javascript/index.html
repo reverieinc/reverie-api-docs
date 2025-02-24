@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverie TTS Web App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Left Side: Text Input -->
+        <div class="text-container">
+            <h2>Text-to-Speech Converter</h2>
+            <textarea id="textInput" placeholder="Enter text..."></textarea>
+            <div class="audio-container">
+                <audio id="audioPlayer" controls></audio>
+            </div>
+        </div>
+
+        <!-- Right Side: Controls -->
+        <div class="controls-container">
+            <div class="control-group">
+                <label for="language">Language:</label>
+                <select id="language" onchange="updateSpeakers()">
+                    <option value="en">English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="bn">Bengali</option>
+                    <option value="kn">Kannada</option>
+                    <option value="ml">Malayalam</option>
+                    <option value="ta">Tamil</option>
+                    <option value="te">Telugu</option>
+                    <option value="gu">Gujarati</option>
+                    <option value="or">Odia</option>
+                    <option value="as">Assamese</option>
+                    <option value="mr">Marathi</option>
+                    <option value="pa">Punjabi</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="speaker">Speaker:</label>
+                <select id="speaker"></select>
+            </div>
+
+            <div class="control-group">
+                <label for="speed">Speed:</label>
+                <select id="speed">
+                    <option value="0.5">0.5</option>
+                    <option value="0.75">0.75</option>
+                    <option value="1" selected>1</option>
+                    <option value="1.25">1.25</option>
+                    <option value="1.5">1.5</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="pitch">Pitch:</label>
+                <select id="pitch">
+                    <option value="-2">XX - Low</option>
+                    <option value="-1.5">X - Low</option>
+                    <option value="-1">Low</option>
+                    <option value="0" selected>Default</option>
+                    <option value="1">High</option>
+                    <option value="1.5">X - High</option>
+                    <option value="2">XX - High</option>
+                </select>
+                <script src="script.js"></script>
+            </div>
+
+            <button onclick="convertTextToSpeech()">Generate Speech</button>
+
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
