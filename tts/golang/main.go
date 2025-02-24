@@ -18,10 +18,10 @@ func sendRequest(payload string, filename string) {
 	}
 
 	// Set Headers
-	req.Header.Set("REV-API-KEY", "41bcd5682315d69982334332f9eaf0a50ee11678")
-	req.Header.Set("REV-APP-ID", "com.sarthak.sahoo")
+	req.Header.Set("REV-API-KEY", "<YOUR-API-KEY>")
+	req.Header.Set("REV-APP-ID", "<YOUR-APP-ID>")
 	req.Header.Set("REV-APPNAME", "tts")
-	req.Header.Set("speaker", "hi_female")
+	req.Header.Set("speaker", "hi_female") //Set Speaker
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
