@@ -11,8 +11,8 @@ import (
 
 const (
 	apiURL     = "https://revapi.reverieinc.com/"
-	apiKey     = "8b2bdd790d81cd8dd3eac38b258ba7cd0990f83d"
-	appID      = "com.reverieetherpad"
+	apiKey     = "<YOUR API KEY>"
+	appID      = "<YOUR APP ID>"
 )
 
 type RequestBody struct {
