@@ -1,0 +1,5 @@
+pyaudio
+pydub
+reverie-sdk
+requests
+websocket-client
