@@ -1,5 +1,37 @@
 # Localization API
 
+## Steps to Run the Application with Live Server
+
+### Prerequisites:
+
+- **VS Code** installed
+- **Live Server** extension installed in VS Code
+
+### Running the Application:
+
+1. **Open the Project in VS Code**
+
+   - Open VS Code
+   - Click **File** > **Open Folder** and select the project directory
+
+2. **Start Live Server**
+
+   - Open `index.html` in VS Code
+   - Right-click anywhere in the file and select **"Open with Live Server"**
+   - OR click the **Go Live** button in the VS Code status bar
+
+3. **Access the Application**
+
+   - The application will open in your default browser
+   - If not, manually open `http://127.0.0.1:5500/` in your browser
+
+4. **Using the Application**
+   - Select the Source and Target Language from the dropdowns
+   - Enter your text in the provided text box.
+   - Click **Translate** to process the text.
+   - Results will be displayed in output box
+   - Click **Reset** to clear the input.
+
 ## **Supported Languages**
 
 - Hindi (`hi`)
