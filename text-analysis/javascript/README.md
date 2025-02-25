@@ -1,5 +1,37 @@
 # Text Analysis
 
+## Steps to Run the Application with Live Server
+
+### Prerequisites:
+
+- **VS Code** installed
+- **Live Server** extension installed in VS Code
+
+### Running the Application:
+
+1. **Open the Project in VS Code**
+
+   - Open VS Code
+   - Click **File** > **Open Folder** and select the project directory
+
+2. **Start Live Server**
+
+   - Open `index.html` in VS Code
+   - Right-click anywhere in the file and select **"Open with Live Server"**
+   - OR click the **Go Live** button in the VS Code status bar
+
+3. **Access the Application**
+
+   - The application will open in your default browser
+   - If not, manually open `http://127.0.0.1:5500/` in your browser
+
+4. **Using the Application**
+   - Enter your text in the provided text box.
+   - Select the required analysis features using the toggle switches.
+   - Click **Analyze** to process the text.
+   - Results will be displayed in different tabs based on the selected features.
+   - Click **Reset** to clear the input.
+
 ## Supported Languages
 
 The following languages are supported for all NLP functionalities:
