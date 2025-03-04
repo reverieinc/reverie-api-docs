@@ -7,8 +7,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const sourceText = document.getElementById("sourceText"); //Source Text
     const targetText = document.getElementById("targetText"); //Target Text
 
-    let apiKey = '<YOUR-API-KEY>'; //Your API Key
-    let appId = '<YOUR-APP-ID>'; //Your APP ID
+    const reverieClient = new ReverieClient({
+        apiKey: "<YOUR-API-KEY>",
+        appId: "<YOUR-APP-ID>"
+    });
+
     let inputToolKey = 'phonetic';
 
     //Available Source Languages
@@ -64,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     sourceLangSelect.addEventListener("change", updateTargetLanguages);
 
-    transliterateBtn.addEventListener("click", function () {
+    transliterateBtn.addEventListener("click", async function () {
         const sourceLang = sourceLangSelect.value;
         const targetLang = targetLangSelect.value;
         const domain = domainSelect.value;
@@ -75,38 +78,24 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("https://revapi.reverieinc.com/", { //Base URL
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "REV-API-KEY": apiKey,
-                "REV-APP-ID": appId,
-                "src_lang": sourceLang,
-                "tgt_lang": targetLang,
-                "domain": domain,
-                "cnt_lang": "en",
-                "REV-APPNAME": "transliteration",
-                "REV-APPVERSION": "2.0"
-            },
-            body: JSON.stringify({
-                data: [text],
-                isBulk: false,
-                ignoreTaggedEntities: false
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.responseList && data.responseList.length > 0) {
-                    targetText.value = data.responseList[0].outString[0]; //Result is mapped to Output Textarea
-                } else {
-                    targetText.value = "Error: No response received";
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                targetText.value = "Error: Failed to transliterate";
+        try {
+            const result = await reverieClient.transliterate({
+                text: text,
+                src_lang: sourceLang,
+                tgt_lang: targetLang,
+                domain: domain
             });
+            if (result) {
+                targetText.value = result;
+            } else {
+                targetText.value = "Error: No response received";
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            targetText.value = "Error: Failed to transliterate";
+        }
     });
+
 
     resetBtn.addEventListener("click", function () {
         sourceText.value = "";

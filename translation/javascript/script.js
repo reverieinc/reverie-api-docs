@@ -7,8 +7,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const domainSelect = document.getElementById('domain'); //Domain 
     const resetBtn = document.getElementById('resetBtn');
 
-    let apiKey = '<YOUR-API-KEY>'; //Your API Key
-    let appId = '<YOUR-APP-ID>'; //Your APP ID
+    const reverieClient = new ReverieClient({
+        apiKey: "<YOUR-API-KEY>",
+        appId: "<YOUR-APP-ID>"
+    });
+
     let inputToolKey = 'phonetic';
 
     resetBtn.addEventListener('click', function () {
@@ -101,43 +104,22 @@ document.addEventListener('DOMContentLoaded', function () {
         targetText.value = 'Translating...';
         const url = 'https://revapi.reverieinc.com/';
 
-        const headers = {
-            'Content-Type': 'application/json',
-            'REV-API-KEY': apiKey,
-            'REV-APP-ID': appId,
-            'src_lang': srcLang,
-            'tgt_lang': tgtLang,
-            'domain': 'generic',
-            'REV-APPNAME': 'localization',
-            'REV-APPVERSION': '3.0'
-        };
-
-        const data = {
-            "data": [sourceText.value],
-            "nmtMask": true,
-            "nmtMaskTerms": {},
-            "enableNmt": true,
-            "enableLookup": true
-        };
-
         try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(data)
+            const result = await reverieClient.translate({
+                text: sourceText.value,
+                src_lang: srcLang,
+                tgt_lang: tgtLang,
+                domain: 'generic'
             });
-
-            const result = await response.json();
-            if (result.responseList && result.responseList.length > 0) {
-                targetText.value = result.responseList[0].outString || "Translation unavailable!";
+            if (result) {
+                targetText.value = result;
             } else {
-                targetText.value = "Translation failed!";
+                targetText.value = "Error: No response received";
             }
         } catch (error) {
             console.error("Error:", error);
-            targetText.value = "Translation error!";
+            targetText.value = "Error: Failed to transliterate";
         }
-
         translateBtn.disabled = false;
         translateBtn.textContent = 'Translate';
     }
@@ -147,8 +129,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let creds = {
             lang: sourceLanguage,
             mode: inputToolKey,
-            apiKey,
-            appId,
+            apiKey: reverieClient.apiKey,
+            appId: reverieClient.appId,
             querySel: querySelector,
             domain: domain,
         };
