@@ -1,0 +1,15 @@
+{
+  "name": "transliteration",
+  "version": "1.0.0",
+  "description": "- **VS Code** installed\r - **Live Server** extension installed in VS Code",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@reverieit/reverie-client": "^0.1.3"
+  }
+}
