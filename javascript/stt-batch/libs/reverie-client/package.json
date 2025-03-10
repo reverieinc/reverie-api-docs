@@ -1,0 +1,32 @@
+{
+  "name": "@reverieit/reverie-client",
+  "version": "0.1.3",
+  "homepage": "https://revup.reverieinc.com",
+  "bugs": "https://github.com/reverieinc/reverie-api-docs/issues",
+  "description": "Reverie's API access through node package manager",
+  "license": "MIT",
+  "keywords": [
+    "reverie-client",
+    "reverie",
+    "stt",
+    "tts",
+    "transliteration",
+    "localization",
+    "translation"
+  ],
+  "author": "Ayushman Manishankar <ayushman.manishankar@reverieinc.com> (https://reverieinc.com)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "LICENSE",
+    "History.md",
+    "Readme.md",
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reverieinc/reverie-api-docs.git"
+  }
+}

@@ -1,4 +1,4 @@
-*/javascript/node_modules
-*/javascript/package-lock.json
-*/python/.env
+javascript/*/node_modules
+javascript/*/package-lock.json
+python/*/.env
 .env
