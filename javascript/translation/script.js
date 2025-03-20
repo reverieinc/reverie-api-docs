@@ -1,3 +1,5 @@
+import ReverieClient from "reverie-client";
+
 document.addEventListener('DOMContentLoaded', function () {
     const translateBtn = document.getElementById('translateBtn');
     const sourceLang = document.getElementById('sourceLang'); //Source Language
@@ -147,8 +149,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     sourceLang.addEventListener('change', function () {
         let selectedLang = sourceLang.value;
-        disableSwalekh('#sourceText');
-        enableSwalekh('#sourceText', selectedLang, inputToolKey, '1');
         updateTargetLanguages();
     });
 

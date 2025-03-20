@@ -1,3 +1,5 @@
+import ReverieClient from "@reverieit/reverie-client";
+
 async function transcribeAudio() {
     const fileInput = document.getElementById("audioFile");
     const audioPlayer = document.getElementById("audioPlayer");
@@ -31,3 +33,8 @@ async function transcribeAudio() {
         transcriptionOutput.textContent = "Error processing the request.";
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("transcribeBtn").addEventListener("click", transcribeAudio);
+
+});

@@ -1,12 +1,12 @@
 {
-  "name": "stt-stream",
+  "name": "stt-batch",
   "version": "1.0.0",
-  "description": "Ensure you have the following installed before proceeding:",
+  "description": "",
   "main": "script.js",
- "scripts": {
-  "start": "webpack serve --mode development",
-  "build": "webpack --mode production"
-},
+  "scripts": {
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

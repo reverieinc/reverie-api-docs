@@ -1,29 +1,37 @@
 # Localization API
 
-## Steps to Run the Application with Live Server
+## Steps to Run the Application
 
 ### Prerequisites:
 
 - **VS Code** installed
-- **Live Server** extension installed in VS Code
+- **Node.js** installed (for Webpack-based setup)
 
 ### Running the Application:
 
-1. **Open the Project in VS Code**
+1. **Install Dependencies**
 
-   - Open VS Code
-   - Click **File** > **Open Folder** and select the project directory
+   - Open the terminal in VS Code
+   - Run:
+     ```sh
+     npm install
+     ```
 
-2. **Start Live Server**
+2. **Start the Dev Server**
 
-   - Open `index.html` in VS Code
-   - Right-click anywhere in the file and select **"Open with Live Server"**
-   - OR click the **Go Live** button in the VS Code status bar
+   - Run:
+     ```sh
+     npm start
+     ```
+   - This will start the Webpack Dev Server on `http://localhost:3000/`
 
-3. **Access the Application**
+3. **Build for Production**
 
-   - The application will open in your default browser
-   - If not, manually open `http://127.0.0.1:5500/` in your browser
+   - Run:
+     ```sh
+     npm run build
+     ```
+   - This will generate the bundled files in the `dist/` folder
 
 4. **Using the Application**
    - Select the Source and Target Language from the dropdowns

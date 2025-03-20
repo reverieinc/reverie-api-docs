@@ -1,40 +1,42 @@
 # Speech-to-Text (Streaming) API
 
-## Prerequisites
+## Steps to Run the Application
 
-Ensure you have the following installed before proceeding:
+### Prerequisites:
 
-- [Node.js](https://nodejs.org/) (v14 or later)
-- npm (comes with Node.js)
+- **VS Code** installed
+- **Node.js** installed (for Webpack-based setup)
 
 ## Installation
 
-1. Install dependencies:
-   ```sh
-   npm install
-   ```
+1. **Install Dependencies**
 
-## Running the Application
+   - Open the terminal in VS Code
+   - Run:
+     ```sh
+     npm install
+     ```
 
-1. Move into the directory:
-   ```sh
-   reverie-api-docs\stt-stream\javascript>
-   ```
-2. Start the Express server:
+2. **Start the Dev Server**
 
-   ```sh
-   node index.js
-   ```
+   - Run:
+     ```sh
+     npm start
+     ```
+   - This will start the Webpack Dev Server on `http://localhost:3000/`
 
-3. Open a browser and go to:
-   ```
-   http://localhost:3000
-   ```
+3. **Build for Production**
+
+   - Run:
+     ```sh
+     npm run build
+     ```
+   - This will generate the bundled files in the `dist/` folder
 
 ## Usage
 
 - Click **Start Speaking** to begin speech recognition.
-- Select a language from the dropdown (if available).
+- Select a language from the dropdown .
 - Transcription will appear in the text area.
 - Click **Reset** to clear the text.
 

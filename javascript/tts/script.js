@@ -1,3 +1,5 @@
+import ReverieClient from "@reverieit/reverie-client";
+
 const speakers = {
     hi: ["hi_male", "hi_male_2", "hi_female", "hi_female_2"],
     bn: ["bn_male", "bn_male_2", "bn_female", "bn_female_2"],
@@ -13,6 +15,12 @@ const speakers = {
     en: ["en_male", "en_male_2", "en_female", "en_female_2"]
 };
 
+const reverieClient = new ReverieClient({
+    apiKey: "<YOUR-API-KEY>",
+    appId: "<YOUR-APP-ID>",
+});
+
+
 function updateSpeakers() {
     const lang = document.getElementById("language").value;
     const speakerSelect = document.getElementById("speaker");
@@ -25,38 +33,35 @@ function updateSpeakers() {
     });
 }
 
-function convertTextToSpeech() {
+async function convertTextToSpeech() {
     const text = document.getElementById("textInput").value;
     const language = document.getElementById("language").value;
     const speaker = document.getElementById("speaker").value;
     const speed = document.getElementById("speed").value;
     const pitch = document.getElementById("pitch").value;
 
-    const requestData = {
-        text,
-        speed: parseFloat(speed),
-        pitch: parseFloat(pitch),
-        format: "WAV",
-        speaker
-    };
+    try {
+        const audioBlob = await reverieClient.text_to_speech({
+            text: text,
+            speaker: speaker,
+            speed: speed,
+            pitch: pitch,
+        });
 
-    fetch("https://revapi.reverieinc.com/", {
-        method: "POST",
-        headers: {
-            "REV-API-KEY": "your_api_key",
-            "REV-APP-ID": "your_app_id",
-            "REV-APPNAME": "tts",
-            "speaker": speaker,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(requestData)
-    })
-        .then(response => response.blob())
-        .then(blob => {
-            const audioUrl = URL.createObjectURL(blob);
-            document.getElementById("audioPlayer").src = audioUrl;
-        })
-        .catch(error => console.error("Error:", error));
+        const audioUrl = URL.createObjectURL(audioBlob);
+        document.getElementById("audioPlayer").src = audioUrl;
+    } catch (error) {
+        console.error("Error:", error);
+    }
 }
 
 updateSpeakers();
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("generateSpeech").addEventListener("click", convertTextToSpeech);
+    let languageSelect = document.getElementById("language");
+
+    languageSelect.addEventListener("change", function () {
+        updateSpeakers(languageSelect.value);
+    });
+});

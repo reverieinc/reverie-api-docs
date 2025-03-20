@@ -58,18 +58,19 @@
 
             <textarea id="input-text" placeholder="Enter your text here..."></textarea>
             <div class="buttons">
-                <button class="analyze-btn" onclick="analyzeText()">Analyze</button>
-                <button class="reset-btn" onclick="resetForm()">Reset</button>
+                <button class="analyze-btn" id="analyzeButton">Analyze</button>
+                <button class="reset-btn" id="resetButton">Reset</button>
             </div>
         </div>
 
         <div class="tabs" id="results-tabs">
             <div class="tab-buttons">
-                <button class="tab-btn" onclick="showTab('summary')">Summary</button>
-                <button class="tab-btn" onclick="showTab('entity')">Entity Detection</button>
-                <button class="tab-btn" onclick="showTab('sentiment')">Sentiment</button>
-                <button class="tab-btn" onclick="showTab('moderation')">Content Moderation</button>
-                <button class="tab-btn" onclick="showTab('pii')">PII Redaction</button>
+                <button class="tab-btn" data-tab="summary">Summary</button>
+<button class="tab-btn" data-tab="entity">Entity Detection</button>
+<button class="tab-btn" data-tab="sentiment">Sentiment</button>
+<button class="tab-btn" data-tab="moderation">Content Moderation</button>
+<button class="tab-btn" data-tab="pii">PII Redaction</button>
+
             </div>
             <div class="tab-content" id="summary-tab">Summary results will appear here</div>
             <div class="tab-content" id="entity-tab" style="display: none;">Entity detection results will appear here</div>
@@ -79,7 +80,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
-    <script src="./libs/reverie-client/index.js"></script>
+    <script src="dist/bundle.js"></script>
 </body>
 </html>

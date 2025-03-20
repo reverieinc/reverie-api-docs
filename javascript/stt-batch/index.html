@@ -34,7 +34,7 @@
         <div class="upload-container">
             <label for="audioFile" class="upload-label">Upload an audio file:</label>
             <input type="file" id="audioFile" accept="audio/*">
-            <button onclick="transcribeAudio()">Transcribe</button>
+            <button id="transcribeBtn">Transcribe</button>
         </div>
 
         <!-- Audio Player -->
@@ -48,9 +48,7 @@
             <p id="transcription">No transcription yet.</p>
         </div>
     </div>
-
-    <script src="script.js"></script>
-    <script src="./libs/reverie-client/index.js"></script>
+    <script src="dist/bundle.js"></script>
 
 </body>
 </html>

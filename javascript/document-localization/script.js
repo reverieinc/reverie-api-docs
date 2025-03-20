@@ -1,3 +1,5 @@
+import ReverieClient from "@reverieit/reverie-client";
+
 document.addEventListener('DOMContentLoaded', function () {
     const dropArea = document.getElementById('dropArea');
     const fileInput = document.getElementById('fileInput');
@@ -9,6 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const statusMessage = document.getElementById('statusMessage');
     const sourceLanguageSelect = document.getElementById('sourceLanguage');
     const targetLanguageSelect = document.getElementById('targetLanguage');
+
+    const reverieClient = new ReverieClient({
+        apiKey: "<YOUR-API-KEY>",
+        appId: "<YOUR-APP-ID>",
+    });
+
+
 
     let uploadedFile = null;
     let docId = null;
@@ -86,93 +95,59 @@ document.addEventListener('DOMContentLoaded', function () {
         statusMessage.textContent = 'File ready for translation';
     }
 
-    translateBtn.addEventListener('click', async function () {
+    translateBtn.addEventListener("click", async function () {
         if (!uploadedFile) {
-            statusMessage.textContent = 'Please upload a file first';
+            statusMessage.textContent = "Please upload a file first";
             return;
         }
 
-        const selectedSource = languages.find(lang => lang.key === sourceLanguageSelect.value);
-        const selectedTarget = languages.find(lang => lang.key === targetLanguageSelect.value);
+        const selectedSource = sourceLanguageSelect.value;
+        console.log("hello", selectedSource);
 
-        const formData = new FormData();
-        formData.append('sourceLanguage', selectedSource ? selectedSource.key : 'english');
-        formData.append('targetLanguage', selectedTarget ? selectedTarget.key : 'hindi');
-        formData.append('projectFiles', uploadedFile);
-
-        statusMessage.textContent = 'Translating document...';
+        const selectedTarget = targetLanguageSelect.value;
+        statusMessage.textContent = "Translating document...";
 
         try {
-            const response = await fetch('https://revapi.reverieinc.com/translate_doc_import', {
-                method: 'POST',
-                headers: {
-                    'REV-APP-ID': '<YOUR-APP-ID>',
-                    'REV-APPNAME': 'nmt',
-                    'REV-API-KEY': '<YOUR-API-KEY>'
-                },
-                body: formData
+            const response = await reverieClient.translateDocument({
+                sourceLanguage: selectedSource,
+                targetLanguage: selectedTarget,
+                uploadedFile: uploadedFile,
             });
 
-            const data = await response.json();
-
-            if (response.ok) {
-                docId = data.projectId;
-                checkStatus(docId);
-            } else {
-                statusMessage.textContent = 'Error in translation process';
-            }
+            console.log("Translation API Response:", response);
+            statusMessage.textContent = "Translation request sent!";
         } catch (error) {
-            statusMessage.textContent = 'Translation failed';
+            console.error("Translation Error:", error);
+            statusMessage.textContent = "Error in translation process";
         }
     });
 
+
     async function checkStatus(docId) {
         try {
-            const statusResponse = await fetch(`https://revapi.reverieinc.com/translate_doc_status?doc_id=${docId}`, {
-                headers: {
-                    'REV-APP-ID': '<YOUR-APP-ID>',
-                    'REV-APPNAME': 'nmt',
-                    'REV-API-KEY': '<YOUR-API-KEY>'
-                }
-            });
-            const statusData = await statusResponse.json();
-
-            if (statusData.success && statusData.message === "completed") {
+            const translationComplete = await reverieClient.checkStatus(docId);
+            if (translationComplete) {
                 statusMessage.textContent = 'Translation complete!';
                 downloadBtn.classList.add('visible');
+                downloadBtn.setAttribute('data-doc-id', docId);
+                downloadBtn.setAttribute('data-target-language', targetLanguage);
             } else {
                 setTimeout(() => checkStatus(docId), 2000);
             }
         } catch (error) {
-            statusMessage.textContent = 'Error checking status';
+            statusMessage.textContent = 'Error checking translation status';
         }
     }
 
     downloadBtn.addEventListener('click', async function () {
-        if (!docId) return;
-
-        const selectedTarget = languages.find(lang => lang.key === targetLanguageSelect.value);
-        const requestBody = { unitId: docId, targetLanguages: [selectedTarget.key] };
+        const docId = downloadBtn.getAttribute('data-doc-id');
+        const targetLanguage = downloadBtn.getAttribute('data-target-language');
+        if (!docId || !targetLanguage) return;
 
         try {
-            const response = await fetch('https://revapi.reverieinc.com/translate_doc_export', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'REV-APP-ID': '<YOUR-APP-ID>',
-                    'REV-APPNAME': 'nmt',
-                    'REV-API-KEY': '<YOUR-API-KEY>'
-                },
-                body: JSON.stringify(requestBody)
-            });
-
-            const responseData = await response.json();
-            if (responseData.success) {
-                Object.values(responseData.data.targetURLS).forEach(languages => {
-                    Object.values(languages).forEach(fileURL => {
-                        window.open(fileURL, '_blank');
-                    });
-                });
+            const translatedFileURL = await reverieClient.downloadTranslatedFile(docId, targetLanguage);
+            if (translatedFileURL) {
+                window.open(translatedFileURL, '_blank');
             }
         } catch (error) {
             statusMessage.textContent = 'Error downloading translation';

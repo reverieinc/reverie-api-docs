@@ -1,4 +1,6 @@
 // List of supported languages with their keys and labels
+import ReverieClient from "reverie-client";
+
 const languages = [
     { key: "en", label: "English" },
     { key: "hi", label: "Hindi (हिन्दी)" },
@@ -148,22 +150,39 @@ function showTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.style.display = 'none';
     });
+
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
     });
-    document.getElementById(tabName + '-tab').style.display = 'block';
-    document.querySelector(`.tab-btn[onclick="showTab('${tabName}')"]`).classList.add('active');
+
+    const targetTab = document.getElementById(tabName + '-tab');
+    if (targetTab) {
+        targetTab.style.display = 'block';
+    } else {
+        console.error(`Tab with ID '${tabName}-tab' not found.`);
+    }
+
+    const activeButton = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+    if (activeButton) {
+        activeButton.classList.add('active');
+    } else {
+        console.error(`Button for tab '${tabName}' not found.`);
+    }
 }
+
 
 // Function to reset the form and clear previous results
 function resetForm() {
-    document.getElementById('input-text').value = '';
-    document.getElementById('language').selectedIndex = 0;
-    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.checked = false;
-    });
-    document.getElementById('results-tabs').style.display = 'none';
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.innerHTML = tab.id.replace('-tab', ' results will appear here');
-    });
+    document.getElementById("input-text").value = "";
+    document.getElementById("language").selectedIndex = 0;
+    document.querySelectorAll("input[type='checkbox']").forEach(checkbox => checkbox.checked = false);
+    document.getElementById("results-tabs").style.display = "none";
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("analyzeButton").addEventListener("click", analyzeText);
+    document.getElementById("resetButton").addEventListener("click", resetForm);
+    document.querySelectorAll(".tab-btn").forEach(button => {
+        button.addEventListener("click", () => showTab(button.getAttribute("data-tab")));
+    });
+});
