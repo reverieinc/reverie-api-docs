@@ -24,7 +24,7 @@
         <div class="controls-container">
             <div class="control-group">
                 <label for="language">Language:</label>
-                <select id="language" onchange="updateSpeakers()">
+                <select id="language">
                     <option value="en">English</option>
                     <option value="hi">Hindi</option>
                     <option value="bn">Bengali</option>
@@ -67,10 +67,10 @@
                     <option value="1.5">X - High</option>
                     <option value="2">XX - High</option>
                 </select>
-                <script src="script.js"></script>
+                <script src="dist/bundle.js"></script>
             </div>
 
-            <button onclick="convertTextToSpeech()">Generate Speech</button>
+            <button id="generateSpeech">Generate Speech</button>
 
         </div>
     </div>

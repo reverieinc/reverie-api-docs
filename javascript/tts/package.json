@@ -1,9 +1,9 @@
 {
-  "name": "stt-stream",
+  "name": "tts",
   "version": "1.0.0",
-  "description": "Ensure you have the following installed before proceeding:",
+  "description": "",
   "main": "script.js",
- "scripts": {
+  "scripts": {
   "start": "webpack serve --mode development",
   "build": "webpack --mode production"
 },

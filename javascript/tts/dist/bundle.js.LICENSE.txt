@@ -1,0 +1,5 @@
+/*!
+ * reverie-client
+ * Copyright(c) 2025 Reverie Language Technologies
+ * MIT Licensed
+ */

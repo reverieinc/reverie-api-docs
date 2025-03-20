@@ -1,9 +1,9 @@
 {
-  "name": "stt-stream",
+  "name": "document-localization",
   "version": "1.0.0",
-  "description": "Ensure you have the following installed before proceeding:",
+  "description": "- **VS Code** installed\r - **Live Server** extension installed in VS Code",
   "main": "script.js",
- "scripts": {
+  "scripts": {
   "start": "webpack serve --mode development",
   "build": "webpack --mode production"
 },

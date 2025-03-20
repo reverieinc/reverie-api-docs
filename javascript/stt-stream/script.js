@@ -1,3 +1,10 @@
+import ReverieClient from "reverie-client";
+
+const reverieClient = new ReverieClient({
+    apiKey: "<YOUR-API-KEY>",
+    appId: "<YOUR-APP-ID>",
+});
+
 let finalResult = '';
 let partialResult = '';
 let auxHtml = '';
@@ -33,16 +40,14 @@ const sttInitialization = async () => {
     const srcLangKey = languageSelect.value;
 
     try {
-        await window.stt_stream.initSTT({
-            apikey: '<YOUR-API-KEY>',
-            appId: '<YOUR-APP-ID>',
-            language: srcLangKey,
+        await reverieClient.init_stt({
+            src_lang: srcLangKey,
             domain: 'generic',
             silence: 1,
-            continuous: 1,
+            continuous: true,
             logging: true,
             timeout: 180,
-            eventHandler: voiceText,
+            callback: voiceText,
             errorHandler: (error) => console.error('Error:', error),
         });
         console.log('STT Streaming initialized successfully');
@@ -52,13 +57,17 @@ const sttInitialization = async () => {
 };
 
 const voiceText = (event) => {
-    let text = event.data;
-    if (event.event === "FINAL_RESULT") {
+    if (!event.stt_event) {
+        console.error("Invalid STT event received:", event);
+        return;
+    }
+    let sttEvent = event.stt_event;
+    if (sttEvent.event === "FINAL_RESULT") {
         finalResult = text;
         partialResult = "";
-        auxHtml = auxHtml2 + " " + finalResult; // Reset auxHtml instead of appending
+        auxHtml = auxHtml2 + " " + finalResult;
         updateTranscript();
-    } else if (event.event === "PARTIAL_RESULTS") {
+    } else if (sttEvent.event === "PARTIAL_RESULTS") {
         if (["es-ES", "fr-FR", "ar-SA"].includes(languageSelect.value)) {
             transcriptElement.value = text;
         }
@@ -66,6 +75,7 @@ const voiceText = (event) => {
         updateTranscript();
     }
 };
+
 
 const updateTranscript = () => {
     if (partialResult !== "") {
@@ -79,12 +89,12 @@ const updateTranscript = () => {
 
 const toggleRecognition = async () => {
     if (isListening) {
-        window.stt_stream.stopSTT();
+        await reverieClient.stop_stt();
         isListening = false;
         toggleBtn.textContent = "Start Speaking";
     } else {
         await sttInitialization();
-        window.stt_stream.startSTT();
+        await reverieClient.start_stt();
         isListening = true;
         toggleBtn.textContent = "Stop Speaking";
     }
