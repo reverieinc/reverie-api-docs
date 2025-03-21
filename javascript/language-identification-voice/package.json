@@ -1,7 +1,7 @@
 {
-  "name": "document-localization",
+  "name": "language-identification-voice",
   "version": "1.0.0",
-  "description": "- **VS Code** installed\r - **Live Server** extension installed in VS Code",
+  "description": "",
   "main": "script.js",
   "scripts": {
     "start": "webpack serve --mode development",
