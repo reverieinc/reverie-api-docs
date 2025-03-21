@@ -1,11 +1,14 @@
+import ReverieClient from "@reverieit/reverie-client";
 
 async function identifyLanguage() {
     const text = document.getElementById('text-input').value;
-    const apiKey = 'REV-API-KEY'; // Replace with your actual API key
-    const appID = 'REV-APP-ID'; // Replace with your actual app ID
-    const baseURL = 'https://revapi.reverieinc.com'; // Replace with the actual API base URL
 
-    // Validate text length
+    const reverieClient = new ReverieClient({
+        apiKey: "<YOUR-API-KEY>",
+        appId: "<YOUR-APP-ID>",
+    });
+
+
     if (!text) {
         alert('Text is required.');
         return;
@@ -16,38 +19,23 @@ async function identifyLanguage() {
     }
 
     // Calculate maxLength (this is an approximation of your Go code's logic)
-    const maxLength = Math.pow(2, Math.ceil(Math.sqrt(text.length)));
-
-    // Prepare request body
-    const requestBody = {
-        text: text,
-        max_length: maxLength > 512 ? 512 : maxLength
-    };
 
     try {
-        const response = await fetch(baseURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'REV-API-KEY': apiKey,
-                'REV-APP-ID': appID,
-                'REV-APPNAME': 'lang_id_text'
-            },
-            body: JSON.stringify(requestBody)
-        });
-
-        // Check if the response status is ok
-        if (!response.ok) {
-            const errorMessage = `API error: ${response.statusText}`;
-            document.getElementById('response-output').textContent = errorMessage;
-            return;
+        const response = await reverieClient.identify_language_by_text({ text: text });
+        // Extract the 'lang' field from the response
+        if (response.lang) {
+            document.getElementById('response-output').textContent = `Detected Language: ${response.lang}`;
+        } else {
+            document.getElementById('response-output').textContent = "Language could not be identified.";
         }
-
-        const result = await response.json();
-        // Assuming the response contains a 'language' field
-        document.getElementById('response-output').textContent = JSON.stringify(result, null, 2);
     } catch (error) {
         console.error('Error:', error);
         document.getElementById('response-output').textContent = 'An error occurred while identifying the language.';
     }
+
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("identifyLanguage").addEventListener("click", identifyLanguage);
+
+});

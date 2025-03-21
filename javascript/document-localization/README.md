@@ -5,7 +5,6 @@
 ### Prerequisites:
 
 - **VS Code** installed
-- **Live Server** extension installed in VS Code
 
 ### Running the Application:
 
